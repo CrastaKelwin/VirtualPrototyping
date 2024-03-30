@@ -96,14 +96,14 @@ SC_MODULE(testbench) {
 
         addr = TIMER_IRQ_STATUS_REG;
         wen = true;
-        data = 0b0000000001; // clear TIMER_CONTROL_CMP_IRQ_BIT
+        data = 0b0000000001; // clear TIMER_IRQ_STATUS_CMP_IRQ_BIT
         wait(1, SC_NS);
         cout << "Checking Timer status " << timer_reg[TIMER_IRQ_STATUS_REG] << endl;
 
         assert(timer_reg[TIMER_IRQ_STATUS_REG] == 0b10);
         addr = TIMER_IRQ_STATUS_REG;
         wen = true;
-        data = 0b00000000010; // clear TIMER_CONTROL_OV_IRQ_BIT
+        data = 0b00000000010; // clear TIMER_IRQ_STATUS_OV_IRQ_BIT
         wait(1, SC_NS);
         cout << "Checking Timer status " << timer_reg[TIMER_IRQ_STATUS_REG] << endl;
 

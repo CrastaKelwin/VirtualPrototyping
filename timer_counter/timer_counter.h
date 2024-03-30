@@ -36,14 +36,14 @@ SC_MODULE(timer_counter)
             {
                 if (address.read() == TIMER_IRQ_STATUS_REG)
                 {
-                    if (data.read() & (1 << TIMER_CONTROL_CMP_IRQ_BIT))
+                    if (data.read() & (1 << TIMER_IRQ_STATUS_CMP_IRQ_BIT))
                     {
-                        timer_reg[TIMER_IRQ_STATUS_REG][TIMER_CONTROL_CMP_IRQ_BIT] = 0;
+                        timer_reg[TIMER_IRQ_STATUS_REG][TIMER_IRQ_STATUS_CMP_IRQ_BIT] = 0;
                     }
 
-                    if (data.read() & (1 << TIMER_CONTROL_OV_IRQ_BIT))
+                    if (data.read() & (1 << TIMER_IRQ_STATUS_OV_IRQ_BIT))
                     {
-                        timer_reg[TIMER_IRQ_STATUS_REG][TIMER_CONTROL_OV_IRQ_BIT] = 0;
+                        timer_reg[TIMER_IRQ_STATUS_REG][TIMER_IRQ_STATUS_OV_IRQ_BIT] = 0;
                     }
                 }else if (address.read() < TIMER_REG_COUNT && address.read() != TIMER_VALUE_REG)
                 {
@@ -55,7 +55,7 @@ SC_MODULE(timer_counter)
                 if (count == 0xff && timer_reg[TIMER_CONTROL_REG][TIMER_CONTROL_OV_BIT])
                 {
                     // count is going to overflow now
-                    timer_reg[TIMER_IRQ_STATUS_REG][TIMER_CONTROL_OV_IRQ_BIT] = 1;
+                    timer_reg[TIMER_IRQ_STATUS_REG][TIMER_IRQ_STATUS_OV_IRQ_BIT] = 1;
                     irq1.write(1);
                 }
                 count = count + 1;
@@ -64,7 +64,7 @@ SC_MODULE(timer_counter)
                 if (timer_reg[TIMER_CONTROL_REG][TIMER_CONTROL_CMP_BIT] && count == timer_reg[TIMER_COMPARE_REG])
                 {
                     irq0.write(1);
-                    timer_reg[TIMER_IRQ_STATUS_REG][TIMER_CONTROL_CMP_IRQ_BIT] = 1;
+                    timer_reg[TIMER_IRQ_STATUS_REG][TIMER_IRQ_STATUS_CMP_IRQ_BIT] = 1;
                 }
                 cout << "@" << sc_time_stamp() << " :: Incremented Counter "
                      << count << endl;
