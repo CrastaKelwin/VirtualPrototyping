@@ -2,16 +2,17 @@
 #include "timer_counter.h"
 
 SC_MODULE(testbench) {
-    sc_clock clk;
-    sc_signal<bool> rst;
-    sc_signal<sc_uint<8>> addr;
-    sc_signal<sc_uint<8>> data;
-    sc_signal<bool> wen;
-    sc_signal<bool> irq0;
-    sc_signal<bool> irq1;
+    sc_clock clk;               // Clock signal
+    sc_signal<bool> rst;        // Reset signal
+    sc_signal<sc_uint<8>> addr; // Address signal
+    sc_signal<sc_uint<8>> data; // Data signal
+    sc_signal<bool> wen;        // Write enable signal
+    sc_signal<bool> irq0;       // IRQ 0 signal
+    sc_signal<bool> irq1;       // IRQ 1 signal
 
-    timer_counter timer_counter_inst;
+    timer_counter timer_counter_inst; // Timer counter instance
 
+    // Test function to verify the functionality of the timer counter
     void test() {
         // Reset
         rst = false;
@@ -41,7 +42,7 @@ SC_MODULE(testbench) {
         wait(1, SC_NS); // count =4
 
         // Wait for interrupt
-        wait(6, SC_NS); //  count =10
+        wait(6, SC_NS); // count =10
 
         // Check IRQ status
         addr = TIMER_IRQ_STATUS_REG;
@@ -96,24 +97,26 @@ SC_MODULE(testbench) {
 
         addr = TIMER_IRQ_STATUS_REG;
         wen = true;
-        data = 0b0000000001; // clear TIMER_CONTROL_CMP_IRQ_BIT
+        data = 0b0000000001; // clear TIMER_IRQ_STATUS_CMP_IRQ_BIT
         wait(1, SC_NS);
         cout << "Checking Timer status " << timer_reg[TIMER_IRQ_STATUS_REG] << endl;
 
         assert(timer_reg[TIMER_IRQ_STATUS_REG] == 0b10);
         addr = TIMER_IRQ_STATUS_REG;
         wen = true;
-        data = 0b00000000010; // clear TIMER_CONTROL_OV_IRQ_BIT
+        data = 0b00000000010; // clear TIMER_IRQ_STATUS_OV_IRQ_BIT
         wait(1, SC_NS);
         cout << "Checking Timer status " << timer_reg[TIMER_IRQ_STATUS_REG] << endl;
 
         assert(timer_reg[TIMER_IRQ_STATUS_REG] == 0b00);
 
-
+        // Stop simulation
         sc_stop();
     }
 
+    // Constructor for the testbench
     SC_CTOR(testbench) : clk("clk", 1, SC_NS), timer_counter_inst("timer_counter_inst") {
+        // Connect signals to timer counter instance
         timer_counter_inst.clock(clk);
         timer_counter_inst.reset(rst);
         timer_counter_inst.address(addr);
@@ -122,7 +125,7 @@ SC_MODULE(testbench) {
         timer_counter_inst.irq0(irq0);
         timer_counter_inst.irq1(irq1);
 
-        // Open VCD file
+        // Open VCD trace file
         sc_trace_file *tf = sc_create_vcd_trace_file("trace");
         // Trace signals
         sc_trace(tf, clk, "clk");
@@ -137,13 +140,15 @@ SC_MODULE(testbench) {
         sc_trace(tf, timer_reg[TIMER_COMPARE_REG], "TIMER_COMPARE_REG");
         sc_trace(tf, timer_reg[TIMER_IRQ_STATUS_REG], "TIMER_IRQ_STATUS_REG");
 
+        // Start test function as a thread
         SC_THREAD(test);
     }
 
 };
 
+// Main function
 int sc_main(int argc, char* argv[]) {
-    testbench tb("tb");
-    sc_start();
+    testbench tb("tb"); // Instantiate the testbench
+    sc_start(); // Start simulation
     return 0;
 }
