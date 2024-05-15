@@ -50,10 +50,10 @@ int sc_main(int argc, char* argv[]) {
     sc_trace(tf, b, "b");
     sc_trace(tf, out, "out");
 
-	OrGate andGate("OrGate");
-	andGate.a(a);
-	andGate.b(b);
-	andGate.out(out);
+	OrGate dut("OrGate");
+	dut.a(a);
+	dut.b(b);
+	dut.out(out);
 
 	TBOrGate tb("TBOrGate");
 	tb.a(a);

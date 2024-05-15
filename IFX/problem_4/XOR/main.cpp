@@ -51,10 +51,10 @@ int sc_main(int argc, char* argv[]) {
     sc_trace(tf, b, "b");
     sc_trace(tf, out, "out");
 
-	XorGate andGate("XorGate");
-	andGate.a(a);
-	andGate.b(b);
-	andGate.out(out);
+	XorGate dut("XorGate");
+	dut.a(a);
+	dut.b(b);
+	dut.out(out);
 
 	TBXorGate tb("TBXorGate");
 	tb.a(a);

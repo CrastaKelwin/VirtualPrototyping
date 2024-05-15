@@ -52,10 +52,10 @@ int sc_main(int argc, char* argv[]) {
     sc_trace(tf, b, "b");
     sc_trace(tf, out, "out");
 
-	XnorGate andGate("XnorGate");
-	andGate.a(a);
-	andGate.b(b);
-	andGate.out(out);
+	XnorGate dut("XnorGate");
+	dut.a(a);
+	dut.b(b);
+	dut.out(out);
 
 	TBXnorGate tb("TBXnorGate");
 	tb.a(a);
