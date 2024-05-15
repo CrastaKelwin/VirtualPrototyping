@@ -26,26 +26,27 @@ SC_MODULE(TBAlfAdder)
 
 	void test()
 	{
-		a.write(false);
-		b.write(false);
-		wait(2, SC_NS);
-		assert(sum.read() == 0);
-		assert(carry.read() == 0);
-		a.write(true);
-		b.write(false);
-		wait(2, SC_NS);
-		assert(sum.read() == 1);
-		assert(carry.read() == 0);
-		a.write(false);
-		b.write(true);
-		wait(2, SC_NS);
-		assert(sum.read() == 1);
-		assert(carry.read() == 0);
-		a.write(true);
-		b.write(true);
-		wait(2, SC_NS);
-		assert(sum.read() == 0);
-		assert(carry.read() == 1);
+		struct inputOutputMap{
+			int in1;
+			int in2;
+			int sum;
+			int carry;
+		};
+		struct inputOutputMap test_input_output[4] = {
+		// in1, in2 , sum, carry
+			{0, 0, 0, 0},
+			{0, 1, 1, 0},
+			{1, 0, 1, 0},
+			{1, 1, 0, 1},
+		};
+		for(int loop_count =0;loop_count<4;loop_count++)
+		{
+			a.write(test_input_output[loop_count].in1);
+			b.write(test_input_output[loop_count].in2);
+			wait(2, SC_NS);
+			assert(sum.read() == test_input_output[loop_count].sum);
+			assert(carry.read() == test_input_output[loop_count].carry);
+		}
 		sc_stop();
 	}
 
