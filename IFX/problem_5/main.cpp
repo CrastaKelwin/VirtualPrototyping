@@ -73,7 +73,7 @@ int sc_main(int argc, char *argv[])
 	dut.sum(sum);
 	dut.carry(carry);
 
-	TBAlfAdder tb("TBAlfAdder");
+	TBAlfAdder tb("TBHalfAdder");
 	tb.a(a);
 	tb.b(b);
 	tb.sum(sum);
