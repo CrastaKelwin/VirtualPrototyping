@@ -15,39 +15,30 @@ SC_MODULE(XorGate) {
 	}
 };
 
-// Monitor
-SC_MODULE(MonitorXorGate) {
+SC_MODULE(TBXorGate) {
+	sc_out<bool> a, b;
 	sc_in<bool> out;
 
-	void monitor() {
-    	cout << "XorGate Output: " << out.read() << endl;
-	}
-
-	SC_CTOR(MonitorXorGate) {
-    	SC_METHOD(monitor);
-    	sensitive << out;
-	}
-};
-// Driver
-SC_MODULE(DriverXorGate) {
-	sc_out<bool> a, b;
-
-	void drive() {
+	void test() {
     	a.write(false);
     	b.write(false);
     	wait(2, SC_NS);
+        assert(out.read()==0);
     	a.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==1);
     	a.write(false);
     	b.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==1);
     	a.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==0);
     	sc_stop();
 	}
 
-	SC_CTOR(DriverXorGate) {
-    	SC_THREAD(drive);
+	SC_CTOR(TBXorGate) {
+    	SC_THREAD(test);
 	}
 };
 
@@ -65,12 +56,10 @@ int sc_main(int argc, char* argv[]) {
 	andGate.b(b);
 	andGate.out(out);
 
-	MonitorXorGate monitor("monitor");
-	monitor.out(out);
-
-	DriverXorGate driver("driver");
-	driver.a(a);
-	driver.b(b);
+	TBXorGate tb("TBXorGate");
+	tb.a(a);
+	tb.b(b);
+    tb.out(out);
 
 	sc_start();
     sc_close_vcd_trace_file(tf);

@@ -15,39 +15,31 @@ SC_MODULE(XnorGate) {
 	}
 };
 
-// Monitor
-SC_MODULE(MonitorXnorGate) {
+
+SC_MODULE(TBXnorGate) {
+	sc_out<bool> a, b;
 	sc_in<bool> out;
 
-	void monitor() {
-    	cout << "XnorGate Output: " << out.read() << endl;
-	}
-
-	SC_CTOR(MonitorXnorGate) {
-    	SC_METHOD(monitor);
-    	sensitive << out;
-	}
-};
-// Driver
-SC_MODULE(DriverXnorGate) {
-	sc_out<bool> a, b;
-
-	void drive() {
+	void test() {
     	a.write(false);
     	b.write(false);
     	wait(2, SC_NS);
+        assert(out.read()==1);
     	a.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==0);
     	a.write(false);
     	b.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==0);
     	a.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==1);
     	sc_stop();
 	}
 
-	SC_CTOR(DriverXnorGate) {
-    	SC_THREAD(drive);
+	SC_CTOR(TBXnorGate) {
+    	SC_THREAD(test);
 	}
 };
 
@@ -65,12 +57,10 @@ int sc_main(int argc, char* argv[]) {
 	andGate.b(b);
 	andGate.out(out);
 
-	MonitorXnorGate monitor("monitor");
-	monitor.out(out);
-
-	DriverXnorGate driver("driver");
-	driver.a(a);
-	driver.b(b);
+	TBXnorGate tb("TBXnorGate");
+	tb.a(a);
+	tb.b(b);
+    tb.out(out);
 
 	sc_start();
     sc_close_vcd_trace_file(tf);

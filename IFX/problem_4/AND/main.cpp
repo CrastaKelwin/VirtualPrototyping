@@ -15,39 +15,30 @@ SC_MODULE(AndGate) {
 	}
 };
 
-// Monitor
-SC_MODULE(MonitorAndGate) {
+SC_MODULE(TBAndGate) {
+	sc_out<bool> a, b;
 	sc_in<bool> out;
 
-	void monitor() {
-    	cout << "AndGate Output: " << out.read() << endl;
-	}
-
-	SC_CTOR(MonitorAndGate) {
-    	SC_METHOD(monitor);
-    	sensitive << out;
-	}
-};
-// Driver
-SC_MODULE(DriverAndGate) {
-	sc_out<bool> a, b;
-
-	void drive() {
+	void test() {
     	a.write(false);
     	b.write(false);
     	wait(2, SC_NS);
+        assert(out.read()==0);
     	a.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==0);
     	a.write(false);
     	b.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==0);
     	a.write(true);
     	wait(2, SC_NS);
+        assert(out.read()==1);
     	sc_stop();
 	}
 
-	SC_CTOR(DriverAndGate) {
-    	SC_THREAD(drive);
+	SC_CTOR(TBAndGate) {
+    	SC_THREAD(test);
 	}
 };
 
@@ -60,17 +51,15 @@ int sc_main(int argc, char* argv[]) {
     sc_trace(tf, b, "b");
     sc_trace(tf, out, "out");
 
-	AndGate andGate("andGate");
-	andGate.a(a);
-	andGate.b(b);
-	andGate.out(out);
+	AndGate dut("andGate");
+	dut.a(a);
+	dut.b(b);
+	dut.out(out);
 
-	MonitorAndGate monitor("monitor");
-	monitor.out(out);
-
-	DriverAndGate driver("driver");
-	driver.a(a);
-	driver.b(b);
+	TBAndGate tb("TBAndGate");
+	tb.a(a);
+	tb.b(b);
+    tb.out(out);
 
 	sc_start();
     sc_close_vcd_trace_file(tf);
