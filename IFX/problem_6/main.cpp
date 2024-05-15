@@ -20,7 +20,7 @@ SC_MODULE(FullAdder)
 	}
 };
 
-SC_MODULE(TBAlfAdder)
+SC_MODULE(TBFullAdder)
 {
 	sc_out<bool> a, b , cin;
 	sc_in<bool> sum, carry;
@@ -57,7 +57,7 @@ SC_MODULE(TBAlfAdder)
 		sc_stop();
 	}
 
-	SC_CTOR(TBAlfAdder)
+	SC_CTOR(TBFullAdder)
 	{
 		SC_THREAD(test);
 	}
@@ -82,7 +82,7 @@ int sc_main(int argc, char *argv[])
 	dut.sum(sum);
 	dut.carry(carry);
 
-	TBAlfAdder tb("TBFullAdder");
+	TBFullAdder tb("TBFullAdder");
 	tb.a(a);
 	tb.b(b);
 	tb.cin(cin);
