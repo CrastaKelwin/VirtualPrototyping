@@ -1,0 +1,288 @@
+$date
+     May 28, 2024       09:11:17
+$end
+
+$version
+ SystemC 2.3.3-Accellera --- Mar 29 2024 09:50:37
+$end
+
+$timescale
+     1 ps
+$end
+
+$scope module SystemC $end
+$var wire    1  aaaaa  clock       $end
+$var wire    1  aaaab  enable       $end
+$var wire    4  aaaac  count [3:0]  $end
+$var wire   32  aaaad  rst [31:0]  $end
+$upscope $end
+$enddefinitions  $end
+
+$comment
+All initial values are dumped below at time 3e-08 sec = 30000 timescale units.
+$end
+
+$dumpvars
+0aaaaa
+0aaaab
+b0 aaaac
+b0 aaaad
+$end
+
+#60000
+1aaaaa
+
+#90000
+0aaaaa
+
+#120000
+1aaaaa
+
+#150000
+0aaaaa
+
+#180000
+1aaaaa
+
+#210000
+0aaaaa
+
+#240000
+1aaaaa
+
+#270000
+0aaaaa
+
+#300000
+1aaaaa
+
+#330000
+0aaaaa
+
+#360000
+1aaaaa
+
+#390000
+0aaaaa
+
+#420000
+1aaaaa
+
+#450000
+0aaaaa
+
+#480000
+1aaaaa
+
+#510000
+0aaaaa
+
+#540000
+1aaaaa
+
+#570000
+0aaaaa
+
+#600000
+1aaaaa
+
+#630000
+0aaaaa
+
+#660000
+1aaaaa
+
+#690000
+0aaaaa
+
+#720000
+1aaaaa
+
+#750000
+0aaaaa
+
+#780000
+1aaaaa
+
+#810000
+0aaaaa
+
+#840000
+1aaaaa
+
+#870000
+0aaaaa
+
+#900000
+1aaaaa
+
+#930000
+0aaaaa
+
+#960000
+1aaaaa
+
+#990000
+0aaaaa
+
+#1020000
+1aaaaa
+
+#1050000
+0aaaaa
+
+#1080000
+1aaaaa
+
+#1110000
+0aaaaa
+
+#1140000
+1aaaaa
+
+#1170000
+0aaaaa
+
+#1200000
+1aaaaa
+
+#1230000
+0aaaaa
+1aaaab
+
+#1260000
+1aaaaa
+b1 aaaac
+
+#1290000
+0aaaaa
+
+#1320000
+1aaaaa
+b10 aaaac
+
+#1350000
+0aaaaa
+
+#1380000
+1aaaaa
+b11 aaaac
+
+#1410000
+0aaaaa
+
+#1440000
+1aaaaa
+b100 aaaac
+
+#1470000
+0aaaaa
+
+#1500000
+1aaaaa
+b101 aaaac
+
+#1530000
+0aaaaa
+
+#1560000
+1aaaaa
+b110 aaaac
+
+#1590000
+0aaaaa
+
+#1620000
+1aaaaa
+b111 aaaac
+
+#1650000
+0aaaaa
+
+#1680000
+1aaaaa
+b1000 aaaac
+
+#1710000
+0aaaaa
+
+#1740000
+1aaaaa
+b1001 aaaac
+
+#1770000
+0aaaaa
+
+#1800000
+1aaaaa
+b1010 aaaac
+
+#1830000
+0aaaaa
+
+#1860000
+1aaaaa
+b1011 aaaac
+
+#1890000
+0aaaaa
+
+#1920000
+1aaaaa
+b1100 aaaac
+
+#1950000
+0aaaaa
+
+#1980000
+1aaaaa
+b1101 aaaac
+
+#2010000
+0aaaaa
+
+#2040000
+1aaaaa
+b1110 aaaac
+
+#2070000
+0aaaaa
+
+#2080000
+b1 aaaad
+
+#2100000
+1aaaaa
+b0 aaaac
+
+#2130000
+0aaaaa
+
+#2160000
+1aaaaa
+
+#2190000
+0aaaaa
+
+#2220000
+1aaaaa
+
+#2250000
+0aaaaa
+
+#2280000
+1aaaaa
+
+#2310000
+0aaaaa
+
+#2340000
+1aaaaa
+
+#2370000
+0aaaaa
+
+#2400000
+1aaaaa
+
+#2430000
